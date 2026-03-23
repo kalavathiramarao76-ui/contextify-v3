@@ -210,7 +210,7 @@ class _ScanScreenState extends State<ScanScreen> {
                         color: colorScheme.surfaceContainerLow,
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
-                          color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+                          color: colorScheme.outlineVariant.withOpacity(0.3),
                         ),
                       ),
                       child: Column(
@@ -220,14 +220,14 @@ class _ScanScreenState extends State<ScanScreen> {
                             height: 160,
                             decoration: BoxDecoration(
                               color: const Color(0xFF0D9488)
-                                  .withValues(alpha: 0.1),
+                                  .withOpacity(0.1),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
                               Icons.document_scanner_rounded,
                               size: 80,
                               color: const Color(0xFF0D9488)
-                                  .withValues(alpha: 0.7),
+                                  .withOpacity(0.7),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -404,7 +404,7 @@ class _ScanScreenState extends State<ScanScreen> {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: _textController.text.isNotEmpty
-                            ? colorScheme.primary.withValues(alpha: 0.3)
+                            ? colorScheme.primary.withOpacity(0.3)
                             : Colors.transparent,
                       ),
                     ),
@@ -418,7 +418,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             'Add context or paste document text...',
                         hintStyle: theme.textTheme.bodyLarge?.copyWith(
                           color: colorScheme.onSurfaceVariant
-                              .withValues(alpha: 0.5),
+                              .withOpacity(0.5),
                         ),
                         filled: false,
                         border: InputBorder.none,
@@ -503,7 +503,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color(0xFF0D9488)
-                                      .withValues(alpha: 0.25),
+                                      .withOpacity(0.25),
                                   blurRadius: 20,
                                   offset: const Offset(0, 8),
                                 ),

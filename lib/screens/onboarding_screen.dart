@@ -94,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 style: GoogleFonts.inter(
                   fontWeight: FontWeight.w600,
                   fontSize: 15,
-                  color: Colors.white.withValues(alpha: 0.8),
+                  color: Colors.white.withOpacity(0.8),
                 ),
               ),
             ),
@@ -124,7 +124,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         decoration: BoxDecoration(
                           color: _currentPage == index
                               ? Colors.white
-                              : Colors.white.withValues(alpha: 0.35),
+                              : Colors.white.withOpacity(0.35),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
@@ -189,14 +189,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 160,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white.withValues(alpha: 0.15),
+                      color: Colors.white.withOpacity(0.15),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.25),
+                        color: Colors.white.withOpacity(0.25),
                         width: 1.5,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: page.gradientStart.withValues(alpha: 0.3),
+                          color: page.gradientStart.withOpacity(0.3),
                           blurRadius: 40,
                           offset: const Offset(0, 16),
                         ),
@@ -242,7 +242,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 style: GoogleFonts.inter(
                   fontSize: 17,
                   fontWeight: FontWeight.w400,
-                  color: Colors.white.withValues(alpha: 0.8),
+                  color: Colors.white.withOpacity(0.8),
                   height: 1.6,
                 ),
                 textAlign: TextAlign.center,

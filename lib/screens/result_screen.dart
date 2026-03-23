@@ -72,7 +72,7 @@ class ResultScreen extends StatelessWidget {
                         center: Alignment.center,
                         radius: 1.2,
                         colors: [
-                          riskColor.withValues(alpha: 0.08),
+                          riskColor.withOpacity(0.08),
                           colorScheme.surface,
                         ],
                       ),
@@ -300,7 +300,7 @@ class ResultScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: colorScheme.primaryContainer
-                                  .withValues(alpha: 0.5),
+                                  .withOpacity(0.5),
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Icon(Icons.record_voice_over_rounded,
@@ -448,11 +448,11 @@ class ResultScreen extends StatelessWidget {
                             horizontal: 24, vertical: 14),
                         decoration: BoxDecoration(
                           color: AppColors.riskColor('safe')
-                              .withValues(alpha: 0.08),
+                              .withOpacity(0.08),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: AppColors.riskColor('safe')
-                                .withValues(alpha: 0.15),
+                                .withOpacity(0.15),
                           ),
                         ),
                         child: Row(
@@ -524,7 +524,7 @@ class _SectionCard extends StatelessWidget {
         border: Border.all(
           color: outlined
               ? colorScheme.outlineVariant
-              : colorScheme.outlineVariant.withValues(alpha: 0.3),
+              : colorScheme.outlineVariant.withOpacity(0.3),
         ),
       ),
       child: child,

@@ -13,6 +13,15 @@ import 'screens/onboarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return Material(
+      child: Center(
+        child: Text('Something went wrong', style: TextStyle(color: Colors.red)),
+      ),
+    );
+  };
+
   try {
     if (Firebase.apps.isEmpty) {
       await Firebase.initializeApp(

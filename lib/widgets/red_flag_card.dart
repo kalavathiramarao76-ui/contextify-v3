@@ -25,7 +25,7 @@ class RedFlagCard extends StatelessWidget {
         color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+          color: colorScheme.outlineVariant.withOpacity(0.3),
         ),
       ),
       clipBehavior: Clip.antiAlias,
@@ -74,10 +74,10 @@ class RedFlagCard extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: severityColor.withValues(alpha: 0.04),
+                  color: severityColor.withOpacity(0.04),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                      color: severityColor.withValues(alpha: 0.1)),
+                      color: severityColor.withOpacity(0.1)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class RedFlagCard extends StatelessWidget {
                       style: GoogleFonts.inter(
                         fontSize: 14,
                         fontStyle: FontStyle.italic,
-                        color: colorScheme.onSurface.withValues(alpha: 0.75),
+                        color: colorScheme.onSurface.withOpacity(0.75),
                         height: 1.6,
                       ),
                     ),

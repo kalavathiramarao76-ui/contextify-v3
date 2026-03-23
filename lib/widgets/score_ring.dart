@@ -87,7 +87,7 @@ class _ScoreRingState extends State<ScoreRing>
               progress: _animation.value,
               gradientColors: gradientColors,
               backgroundColor:
-                  theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+                  theme.colorScheme.surfaceContainerHighest.withOpacity(0.4),
               strokeWidth: widget.strokeWidth,
             ),
             child: Center(
@@ -115,7 +115,7 @@ class _ScoreRingState extends State<ScoreRing>
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       color: theme.colorScheme.onSurfaceVariant
-                          .withValues(alpha: 0.6),
+                          .withOpacity(0.6),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -161,7 +161,7 @@ class _GradientRingPainter extends CustomPainter {
 
     // Shadow arc
     final shadowPaint = Paint()
-      ..color = gradientColors[0].withValues(alpha: 0.15)
+      ..color = gradientColors[0].withOpacity(0.15)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth + 4
       ..strokeCap = StrokeCap.round

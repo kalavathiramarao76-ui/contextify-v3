@@ -12,7 +12,6 @@ class AppTheme {
       secondary: _secondary,
       tertiary: _tertiary,
       brightness: Brightness.light,
-      dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
     );
     return _buildTheme(colorScheme, Brightness.light);
   }
@@ -23,7 +22,6 @@ class AppTheme {
       secondary: _secondary,
       tertiary: _tertiary,
       brightness: Brightness.dark,
-      dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
     );
     return _buildTheme(colorScheme, Brightness.dark);
   }
@@ -132,7 +130,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(
-            color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+            color: colorScheme.outlineVariant.withOpacity(0.5),
             width: 1,
           ),
         ),

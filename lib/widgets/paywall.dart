@@ -123,7 +123,7 @@ class _PaywallState extends State<Paywall> {
               color: colorScheme.surfaceContainerLow,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: const Color(0xFF0D9488).withValues(alpha: 0.3),
+                color: const Color(0xFF0D9488).withOpacity(0.3),
               ),
             ),
             child: Column(
@@ -165,7 +165,7 @@ class _PaywallState extends State<Paywall> {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF0D9488).withValues(alpha: 0.25),
+                    color: const Color(0xFF0D9488).withOpacity(0.25),
                     blurRadius: 20,
                     offset: const Offset(0, 8),
                   ),
@@ -235,7 +235,7 @@ class _PaywallState extends State<Paywall> {
               width: 24,
               height: 24,
               decoration: BoxDecoration(
-                color: const Color(0xFF0D9488).withValues(alpha: 0.12),
+                color: const Color(0xFF0D9488).withOpacity(0.12),
                 shape: BoxShape.circle,
               ),
               child: const Icon(

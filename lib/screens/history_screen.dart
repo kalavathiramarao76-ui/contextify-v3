@@ -77,7 +77,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: colorScheme.errorContainer.withValues(alpha: 0.3),
+                color: colorScheme.errorContainer.withOpacity(0.3),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.delete_sweep_rounded,
@@ -246,7 +246,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           color: colorScheme.surfaceContainerLow,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+            color: colorScheme.outlineVariant.withOpacity(0.3),
           ),
         ),
         child: Material(
@@ -325,7 +325,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: colorScheme.onSurfaceVariant
-                          .withValues(alpha: 0.6),
+                          .withOpacity(0.6),
                     ),
                   ),
                 ],
@@ -350,13 +350,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
             height: 120,
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest
-                  .withValues(alpha: 0.4),
+                  .withOpacity(0.4),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.history_rounded,
               size: 56,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+              color: colorScheme.onSurfaceVariant.withOpacity(0.4),
             ),
           ),
           const SizedBox(height: 24),

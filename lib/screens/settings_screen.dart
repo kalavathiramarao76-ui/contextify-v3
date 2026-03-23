@@ -72,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: colorScheme.errorContainer.withValues(alpha: 0.3),
+                color: colorScheme.errorContainer.withOpacity(0.3),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.delete_forever_rounded,
@@ -227,10 +227,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: colorScheme.primaryContainer.withValues(alpha: 0.25),
+                    color: colorScheme.primaryContainer.withOpacity(0.25),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: colorScheme.primary.withValues(alpha: 0.15),
+                      color: colorScheme.primary.withOpacity(0.15),
                     ),
                   ),
                   child: Row(
@@ -289,7 +289,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     color: colorScheme.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+                      color: colorScheme.outlineVariant.withOpacity(0.3),
                     ),
                   ),
                   child: Row(
@@ -321,7 +321,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Container(
                         width: 1,
                         height: 48,
-                        color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+                        color: colorScheme.outlineVariant.withOpacity(0.5),
                       ),
                       Expanded(
                         child: Column(
@@ -367,7 +367,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: colorScheme.error,
                       side: BorderSide(
-                          color: colorScheme.error.withValues(alpha: 0.3)),
+                          color: colorScheme.error.withOpacity(0.3)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -395,7 +395,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     color: colorScheme.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+                      color: colorScheme.outlineVariant.withOpacity(0.3),
                     ),
                   ),
                   child: Column(
@@ -450,7 +450,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Divider(
                         height: 1,
-                        color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+                        color: colorScheme.outlineVariant.withOpacity(0.3),
                       ),
                       // Privacy row
                       _buildLinkRow(
@@ -463,7 +463,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Divider(
                         height: 1,
                         indent: 56,
-                        color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+                        color: colorScheme.outlineVariant.withOpacity(0.3),
                       ),
                       // Licenses row
                       _buildLinkRow(
@@ -506,13 +506,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           color: colorScheme.surfaceContainerLow,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+            color: colorScheme.outlineVariant.withOpacity(0.3),
           ),
         ),
         child: Column(
           children: [
             Icon(Icons.account_circle_rounded,
-                size: 48, color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
+                size: 48, color: colorScheme.onSurfaceVariant.withOpacity(0.5)),
             const SizedBox(height: 12),
             Text(
               'Sign in to save progress',
@@ -600,7 +600,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+          color: colorScheme.outlineVariant.withOpacity(0.3),
         ),
       ),
       child: Column(
@@ -645,7 +645,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: const Color(0xFF0D9488)
-                                  .withValues(alpha: 0.12),
+                                  .withOpacity(0.12),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -687,7 +687,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: OutlinedButton.styleFrom(
                 foregroundColor: colorScheme.error,
                 side: BorderSide(
-                    color: colorScheme.error.withValues(alpha: 0.3)),
+                    color: colorScheme.error.withOpacity(0.3)),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                 ),
@@ -729,7 +729,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF0D9488).withValues(alpha: 0.2),
+              color: const Color(0xFF0D9488).withOpacity(0.2),
               blurRadius: 16,
               offset: const Offset(0, 6),
             ),
@@ -740,7 +740,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
+                color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: const Icon(Icons.auto_awesome_rounded,
@@ -766,14 +766,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: GoogleFonts.inter(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
-                      color: Colors.white.withValues(alpha: 0.8),
+                      color: Colors.white.withOpacity(0.8),
                     ),
                   ),
                 ],
               ),
             ),
             Icon(Icons.chevron_right_rounded,
-                color: Colors.white.withValues(alpha: 0.7), size: 24),
+                color: Colors.white.withOpacity(0.7), size: 24),
           ],
         ),
       ),
@@ -800,13 +800,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           height: 80,
           decoration: BoxDecoration(
             color: isSelected
-                ? colorScheme.primaryContainer.withValues(alpha: 0.4)
+                ? colorScheme.primaryContainer.withOpacity(0.4)
                 : colorScheme.surfaceContainerLow,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: isSelected
                   ? colorScheme.primary
-                  : colorScheme.outlineVariant.withValues(alpha: 0.3),
+                  : colorScheme.outlineVariant.withOpacity(0.3),
               width: isSelected ? 2 : 1,
             ),
           ),

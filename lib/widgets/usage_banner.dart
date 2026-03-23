@@ -11,7 +11,12 @@ class UsageBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final isSignedIn = AuthService.isSignedIn;
+    bool isSignedIn;
+    try {
+      isSignedIn = AuthService.isSignedIn;
+    } catch (e) {
+      isSignedIn = false;
+    }
     final isProUser = UsageService.isPro();
 
     // Pro user
@@ -33,10 +38,10 @@ class UsageBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF0D9488).withValues(alpha: 0.08),
+        color: const Color(0xFF0D9488).withOpacity(0.08),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: const Color(0xFF0D9488).withValues(alpha: 0.2),
+          color: const Color(0xFF0D9488).withOpacity(0.2),
         ),
       ),
       child: Row(
@@ -69,7 +74,7 @@ class UsageBanner extends StatelessWidget {
         color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+          color: colorScheme.outlineVariant.withOpacity(0.3),
         ),
       ),
       child: Column(
@@ -117,7 +122,7 @@ class UsageBanner extends StatelessWidget {
               minHeight: 6,
               color: const Color(0xFF0D9488),
               backgroundColor:
-                  const Color(0xFF0D9488).withValues(alpha: 0.15),
+                  const Color(0xFF0D9488).withOpacity(0.15),
             ),
           ),
         ],
@@ -138,7 +143,7 @@ class UsageBanner extends StatelessWidget {
         color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+          color: colorScheme.outlineVariant.withOpacity(0.3),
         ),
       ),
       child: Column(
@@ -166,7 +171,7 @@ class UsageBanner extends StatelessWidget {
               minHeight: 6,
               color: const Color(0xFF0D9488),
               backgroundColor:
-                  const Color(0xFF0D9488).withValues(alpha: 0.15),
+                  const Color(0xFF0D9488).withOpacity(0.15),
             ),
           ),
         ],

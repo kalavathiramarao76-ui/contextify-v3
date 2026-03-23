@@ -23,9 +23,9 @@ class RiskBadge extends StatelessWidget {
         horizontal: large ? 16 : 12,
       ),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        color: color.withOpacity(0.08),
         borderRadius: BorderRadius.circular(large ? 18 : 14),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
+        border: Border.all(color: color.withOpacity(0.2)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -60,9 +60,9 @@ class SeverityBadge extends StatelessWidget {
       height: 28,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        color: color.withOpacity(0.08),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
+        border: Border.all(color: color.withOpacity(0.2)),
       ),
       child: Center(
         child: Text(
@@ -94,7 +94,7 @@ class TypeBadge extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+          color: theme.colorScheme.outlineVariant.withOpacity(0.5),
         ),
       ),
       child: Center(

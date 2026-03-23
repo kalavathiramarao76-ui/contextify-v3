@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {},
                     style: IconButton.styleFrom(
                       backgroundColor:
-                          colorScheme.primaryContainer.withValues(alpha: 0.5),
+                          colorScheme.primaryContainer.withOpacity(0.5),
                       foregroundColor: colorScheme.onPrimaryContainer,
                     ),
                     icon: const Icon(Icons.person_rounded, size: 20),
@@ -217,15 +217,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          colorScheme.primaryContainer.withValues(alpha: 0.4),
-                          colorScheme.primaryContainer.withValues(alpha: 0.15),
+                          colorScheme.primaryContainer.withOpacity(0.4),
+                          colorScheme.primaryContainer.withOpacity(0.15),
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: colorScheme.primary.withValues(alpha: 0.1),
+                        color: colorScheme.primary.withOpacity(0.1),
                       ),
                     ),
                     child: Column(
@@ -310,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: _textController.text.isNotEmpty
-                            ? colorScheme.primary.withValues(alpha: 0.3)
+                            ? colorScheme.primary.withOpacity(0.3)
                             : Colors.transparent,
                       ),
                     ),
@@ -325,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             hintText: 'Paste any text here...',
                             hintStyle: theme.textTheme.bodyLarge?.copyWith(
                               color: colorScheme.onSurfaceVariant
-                                  .withValues(alpha: 0.5),
+                                  .withOpacity(0.5),
                             ),
                             filled: false,
                             border: InputBorder.none,
@@ -357,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 '${_textController.text.length} chars',
                                 style: theme.textTheme.labelSmall?.copyWith(
                                   color: colorScheme.onSurfaceVariant
-                                      .withValues(alpha: 0.5),
+                                      .withOpacity(0.5),
                                 ),
                               ),
                             ],
@@ -441,7 +441,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color(0xFF0D9488)
-                                      .withValues(alpha: 0.25),
+                                      .withOpacity(0.25),
                                   blurRadius: 20,
                                   offset: const Offset(0, 8),
                                 ),

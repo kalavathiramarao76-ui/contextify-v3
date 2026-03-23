@@ -8,7 +8,7 @@ class ShimmerLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final shimmerBase = theme.colorScheme.surfaceContainerHighest
-        .withValues(alpha: 0.4);
+        .withOpacity(0.4);
     final shimmerHighlight = theme.colorScheme.surfaceContainerHigh;
 
     return Column(

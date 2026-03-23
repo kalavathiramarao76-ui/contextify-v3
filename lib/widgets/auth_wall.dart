@@ -84,7 +84,7 @@ class _AuthWallState extends State<AuthWall> {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: const Color(0xFF0D9488).withValues(alpha: 0.12),
+              color: const Color(0xFF0D9488).withOpacity(0.12),
               shape: BoxShape.circle,
             ),
             child: const Center(
@@ -145,7 +145,7 @@ class _AuthWallState extends State<AuthWall> {
                   minHeight: 8,
                   color: const Color(0xFF0D9488),
                   backgroundColor:
-                      const Color(0xFF0D9488).withValues(alpha: 0.15),
+                      const Color(0xFF0D9488).withOpacity(0.15),
                 ),
               ),
             ],
@@ -222,7 +222,7 @@ class _AuthWallState extends State<AuthWall> {
             style: GoogleFonts.inter(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+              color: colorScheme.onSurfaceVariant.withOpacity(0.7),
             ),
           ),
         ],
