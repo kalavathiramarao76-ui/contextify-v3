@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'services/storage_service.dart';
 import 'services/usage_service.dart';
 import 'theme/app_theme.dart';
@@ -20,9 +22,15 @@ void main() async {
     );
   };
 
-  // Firebase is initialized in index.html via JS SDK
-  // Dart accesses it via JS interop in auth_service.dart
-  // No Dart-side Firebase initialization needed
+  // On web: Firebase is initialized in index.html via JS SDK
+  // On mobile: Initialize Firebase via Dart packages
+  if (!kIsWeb) {
+    try {
+      await Firebase.initializeApp();
+    } catch (e) {
+      debugPrint('Firebase init (mobile): $e');
+    }
+  }
 
   await StorageService.init();
   await UsageService.init();

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'auth_stub.dart'
     if (dart.library.js_interop) 'auth_service_web.dart';
 
@@ -30,12 +29,10 @@ class AuthService {
   static AppUser? _cachedUser;
 
   static bool get isFirebaseReady {
-    if (!kIsWeb) return false;
     return webIsFirebaseReady();
   }
 
   static AppUser? get currentUser {
-    if (!kIsWeb) return _cachedUser;
     try {
       _cachedUser = webGetCurrentUser();
       return _cachedUser;
@@ -45,7 +42,6 @@ class AuthService {
   }
 
   static bool get isSignedIn {
-    if (!kIsWeb) return _cachedUser != null;
     try {
       return webIsSignedIn();
     } catch (e) {
@@ -54,9 +50,6 @@ class AuthService {
   }
 
   static Future<AppUser?> signInWithGoogle() async {
-    if (!kIsWeb) {
-      throw Exception('Google Sign-In is only available on web');
-    }
     final user = await webSignInWithGoogle();
     _cachedUser = user;
     return user;
@@ -64,7 +57,6 @@ class AuthService {
 
   static Future<void> signOut() async {
     _cachedUser = null;
-    if (!kIsWeb) return;
     await webSignOut();
   }
 }
