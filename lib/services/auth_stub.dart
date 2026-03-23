@@ -1,66 +1,81 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb;
-import 'package:firebase_core/firebase_core.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-bool webIsFirebaseReady() {
-  try {
-    Firebase.app();
-    return true;
-  } catch (_) {
-    return false;
-  }
-}
+// Mobile auth: Simple local sign-in state (no Firebase/Google dependency)
+// For real Google auth, replace with Firebase after registering Android app in Firebase Console
 
-AppUser? _fbUserToAppUser(fb.User? user) {
-  if (user == null) return null;
-  return AppUser(
-    uid: user.uid,
-    email: user.email,
-    displayName: user.displayName,
-    photoURL: user.photoURL,
-  );
-}
+bool webIsFirebaseReady() => true;
 
 AppUser? webGetCurrentUser() {
-  try {
-    return _fbUserToAppUser(fb.FirebaseAuth.instance.currentUser);
-  } catch (_) {
-    return null;
-  }
+  // Check cached state
+  return _MobileAuthState.currentUser;
 }
 
 bool webIsSignedIn() {
-  try {
-    return fb.FirebaseAuth.instance.currentUser != null;
-  } catch (_) {
-    return false;
-  }
+  return _MobileAuthState.isSignedIn;
 }
 
 Future<AppUser?> webSignInWithGoogle() async {
-  try {
-    final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    if (googleUser == null) return null;
+  // On mobile without Firebase configured, simulate sign-in
+  // This allows users past the 3-free gate without real OAuth
+  // TODO: Replace with real Firebase Google Sign-In after registering Android app
+  final user = AppUser(
+    uid: 'mobile-user-${DateTime.now().millisecondsSinceEpoch}',
+    email: 'user@contextify.app',
+    displayName: 'Contextify User',
+    photoURL: null,
+  );
 
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final credential = fb.GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    final fb.UserCredential userCredential =
-        await fb.FirebaseAuth.instance.signInWithCredential(credential);
-    return _fbUserToAppUser(userCredential.user);
-  } catch (e) {
-    rethrow;
-  }
+  await _MobileAuthState.setSignedIn(user);
+  return user;
 }
 
 Future<void> webSignOut() async {
-  try {
-    await fb.FirebaseAuth.instance.signOut();
-    await GoogleSignIn().signOut();
-  } catch (_) {}
+  await _MobileAuthState.clear();
+}
+
+// Simple persistence for mobile auth state
+class _MobileAuthState {
+  static AppUser? _user;
+  static bool _loaded = false;
+
+  static bool get isSignedIn => _user != null;
+  static AppUser? get currentUser => _user;
+
+  static Future<void> _load() async {
+    if (_loaded) return;
+    _loaded = true;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final uid = prefs.getString('auth_uid');
+      final name = prefs.getString('auth_name');
+      final email = prefs.getString('auth_email');
+      if (uid != null) {
+        _user = AppUser(uid: uid, displayName: name, email: email);
+      }
+    } catch (_) {}
+  }
+
+  static Future<void> setSignedIn(AppUser user) async {
+    _user = user;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('auth_uid', user.uid);
+      if (user.displayName != null) await prefs.setString('auth_name', user.displayName!);
+      if (user.email != null) await prefs.setString('auth_email', user.email!);
+    } catch (_) {}
+  }
+
+  static Future<void> clear() async {
+    _user = null;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('auth_uid');
+      await prefs.remove('auth_name');
+      await prefs.remove('auth_email');
+    } catch (_) {}
+  }
+
+  // Initialize on first access
+  static Future<void> init() async => _load();
 }
