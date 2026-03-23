@@ -23,13 +23,17 @@ void main() async {
   };
 
   try {
-    if (Firebase.apps.isEmpty) {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-    }
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   } catch (e) {
-    debugPrint('Firebase init error (non-fatal): $e');
+    // If already initialized (from JS SDK), try getting the default app
+    try {
+      Firebase.app();
+      debugPrint('Firebase already initialized via JS SDK');
+    } catch (_) {
+      debugPrint('Firebase init error (non-fatal): $e');
+    }
   }
   await StorageService.init();
   await UsageService.init();

@@ -1,10 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthService {
   static FirebaseAuth? _authInstance;
+  static bool _initialized = false;
+
+  static bool get isFirebaseReady {
+    if (_initialized) return true;
+    try {
+      Firebase.app();
+      _initialized = true;
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 
   static FirebaseAuth? get _auth {
+    if (!isFirebaseReady) return null;
     try {
       _authInstance ??= FirebaseAuth.instance;
       return _authInstance;
@@ -42,7 +56,8 @@ class AuthService {
   static Future<User?> signInWithGoogle() async {
     final auth = _auth;
     if (auth == null) {
-      throw Exception('Firebase is not initialized. Please try again.');
+      throw Exception(
+          'Firebase is not ready. Please refresh the page and try again.');
     }
 
     final GoogleAuthProvider googleProvider = GoogleAuthProvider();
