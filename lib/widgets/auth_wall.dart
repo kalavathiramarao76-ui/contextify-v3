@@ -27,22 +27,35 @@ class AuthWall extends StatefulWidget {
 class _AuthWallState extends State<AuthWall> {
   bool _isLoading = false;
 
+  String? _errorMessage;
+
   Future<void> _signInWithGoogle() async {
-    setState(() => _isLoading = true);
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
     try {
       final user = await AuthService.signInWithGoogle();
       if (user != null && mounted) {
         widget.onSignedIn?.call();
         Navigator.pop(context, true);
+      } else if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'Sign-in was cancelled. Please try again.';
+        });
       }
     } catch (e) {
       if (mounted) {
+        final msg = e.toString().replaceAll('Exception: ', '');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = msg;
+        });
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sign-in failed: $e')),
+          SnackBar(content: Text('Sign-in failed: $msg')),
         );
       }
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -150,7 +163,28 @@ class _AuthWallState extends State<AuthWall> {
               ),
             ],
           ),
-          const SizedBox(height: 28),
+          // Error message
+          if (_errorMessage != null) ...[
+            const SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: colorScheme.errorContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                _errorMessage!,
+                style: GoogleFonts.inter(
+                  fontSize: 13,
+                  color: colorScheme.onErrorContainer,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+
+          const SizedBox(height: 20),
 
           // Google Sign-In button
           SizedBox(
