@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
-import '../services/usage_service.dart';
 
 class AuthWall extends StatefulWidget {
   final VoidCallback? onSignedIn;
@@ -63,8 +62,6 @@ class _AuthWallState extends State<AuthWall> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final totalUses = UsageService.getTotalUses();
-
     return Padding(
       padding: EdgeInsets.fromLTRB(
           24, 8, 24, MediaQuery.of(context).padding.bottom + 24),
@@ -123,7 +120,7 @@ class _AuthWallState extends State<AuthWall> {
 
           // Subtitle
           Text(
-            'You\'ve used $totalUses free analyses. Sign in to continue with ${ UsageService.maxDailyFreeUses} free daily analyses.',
+            'You\'ve used 3 free analyses. Sign in with Google for unlimited access \u2014 completely free!',
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               fontSize: 14,
@@ -131,37 +128,6 @@ class _AuthWallState extends State<AuthWall> {
               color: colorScheme.onSurfaceVariant,
               height: 1.5,
             ),
-          ),
-          const SizedBox(height: 20),
-
-          // Progress bar
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '$totalUses/${UsageService.maxFreeUses} free uses',
-                    style: GoogleFonts.inter(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: LinearProgressIndicator(
-                  value: (totalUses / UsageService.maxFreeUses).clamp(0.0, 1.0),
-                  minHeight: 8,
-                  color: const Color(0xFF0D9488),
-                  backgroundColor:
-                      const Color(0xFF0D9488).withOpacity(0.15),
-                ),
-              ),
-            ],
           ),
           // Error message
           if (_errorMessage != null) ...[

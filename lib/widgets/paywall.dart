@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../services/usage_service.dart';
 
+/// This file is deprecated and no longer used.
+/// Sign-in flow is handled by AuthWall instead.
 class Paywall extends StatefulWidget {
   final VoidCallback? onPurchased;
 
@@ -28,17 +29,10 @@ class _PaywallState extends State<Paywall> {
 
   Future<void> _simulatePurchase() async {
     setState(() => _isLoading = true);
-    // Simulate purchase delay
     await Future.delayed(const Duration(milliseconds: 800));
-    await UsageService.setPro(true);
     if (mounted) {
       widget.onPurchased?.call();
       Navigator.pop(context, true);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Welcome to Pro! Enjoy unlimited analyses.'),
-        ),
-      );
     }
   }
 
