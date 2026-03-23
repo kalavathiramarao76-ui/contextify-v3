@@ -22,13 +22,22 @@ void main() async {
     );
   };
 
+  // Initialize Firebase - always call initializeApp from Dart
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     debugPrint('Firebase initialized successfully');
   } catch (e) {
-    debugPrint('Firebase init error (non-fatal): $e');
+    debugPrint('Firebase init attempt: $e');
+    // Might already be initialized, that's OK
+  }
+  // Verify Firebase is actually working
+  try {
+    final app = Firebase.app();
+    debugPrint('Firebase app name: ${app.name}');
+  } catch (e) {
+    debugPrint('Firebase NOT available after init: $e');
   }
   await StorageService.init();
   await UsageService.init();
