@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'services/storage_service.dart';
 import 'services/usage_service.dart';
 import 'theme/app_theme.dart';
@@ -22,23 +20,10 @@ void main() async {
     );
   };
 
-  // Initialize Firebase - always call initializeApp from Dart
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    debugPrint('Firebase initialized successfully');
-  } catch (e) {
-    debugPrint('Firebase init attempt: $e');
-    // Might already be initialized, that's OK
-  }
-  // Verify Firebase is actually working
-  try {
-    final app = Firebase.app();
-    debugPrint('Firebase app name: ${app.name}');
-  } catch (e) {
-    debugPrint('Firebase NOT available after init: $e');
-  }
+  // Firebase is initialized in index.html via JS SDK
+  // Dart accesses it via JS interop in auth_service.dart
+  // No Dart-side Firebase initialization needed
+
   await StorageService.init();
   await UsageService.init();
 

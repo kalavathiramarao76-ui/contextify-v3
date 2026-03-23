@@ -1,43 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Contextify — AI Text Decoder. Detect manipulation, red flags, and hidden meanings in any text.">
-
-  <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="contextify_mobile">
+  <meta name="apple-mobile-web-app-title" content="Contextify">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
-
   <title>Contextify — AI Text Decoder</title>
   <link rel="manifest" href="manifest.json">
-  <style>
-    body { background: #0D9488; margin: 0; }
-  </style>
+  <style>body { background: #0D9488; margin: 0; }</style>
 </head>
 <body>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script>
+    // Initialize Firebase globally BEFORE Flutter loads
+    window._firebaseApp = firebase.initializeApp({
+      apiKey: "AIzaSyA8_NLsIU-daIZpNmuuAHGDI0ihDrBDqnM",
+      authDomain: "app1-99b5a.firebaseapp.com",
+      projectId: "app1-99b5a",
+      storageBucket: "app1-99b5a.firebasestorage.app",
+      messagingSenderId: "967175964103",
+      appId: "1:967175964103:web:9aa30081b8538660c6c5e2"
+    });
+    window._firebaseAuth = firebase.auth();
+
+    // Expose sign-in function for Dart to call via JS interop
+    window.signInWithGoogle = function() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('email');
+      provider.addScope('profile');
+      provider.setCustomParameters({ prompt: 'select_account' });
+      return firebase.auth().signInWithPopup(provider).then(function(result) {
+        return JSON.stringify({
+          uid: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL
+        });
+      });
+    };
+
+    window.signOutFirebase = function() {
+      return firebase.auth().signOut();
+    };
+
+    window.getCurrentUser = function() {
+      var user = firebase.auth().currentUser;
+      if (user) {
+        return JSON.stringify({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL
+        });
+      }
+      return null;
+    };
+
+    window.isFirebaseReady = function() {
+      return true;
+    };
+
+    console.log('Firebase initialized successfully:', window._firebaseApp.name);
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
