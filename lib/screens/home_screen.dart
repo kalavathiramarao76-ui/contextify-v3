@@ -3,7 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/api_service.dart';
+import '../services/auth_service.dart';
 import '../services/storage_service.dart';
+import '../services/usage_service.dart';
+import '../widgets/auth_wall.dart';
+import '../widgets/paywall.dart';
+import '../widgets/usage_banner.dart';
 import '../widgets/shimmer_loading.dart';
 import 'result_screen.dart';
 
@@ -59,6 +64,37 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
+    // Check usage limits
+    final isSignedIn = AuthService.isSignedIn;
+    final isProUser = UsageService.isPro();
+    final status = UsageService.canUse(isSignedIn, isProUser);
+
+    if (status == UsageStatus.requiresSignIn) {
+      final result = await AuthWall.show(context);
+      if (result != true) return;
+      setState(() {}); // Refresh UI after sign-in
+      return;
+    }
+
+    if (status == UsageStatus.requiresDailyWait) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+                'Daily limit reached. Come back tomorrow or upgrade to Pro!'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+      await Paywall.show(context, onPurchased: () => setState(() {}));
+      return;
+    }
+
+    if (status == UsageStatus.requiresPro) {
+      await Paywall.show(context, onPurchased: () => setState(() {}));
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -71,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _selectedType != 'All' ? '[Text type: $_selectedType] ' : '';
       final result = await ApiService.analyzeText('$contextPrefix$text');
       await StorageService.addToHistory(result);
+      await UsageService.incrementUse(isSignedIn);
 
       if (!mounted) return;
 
@@ -220,6 +257,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       .animate()
                       .fadeIn(duration: 500.ms)
                       .slideY(begin: 0.05, end: 0),
+
+                  const SizedBox(height: 12),
+
+                  // Usage banner
+                  const UsageBanner(),
 
                   const SizedBox(height: 20),
 
