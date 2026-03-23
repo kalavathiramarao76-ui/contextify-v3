@@ -1,0 +1,26 @@
+name: contextify_mobile
+description: "Contextify - AI Text Decoder. Analyze any text to detect manipulation, identify red flags, and decode hidden meanings."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^1.2.0
+  shared_preferences: ^2.2.0
+  share_plus: ^7.2.0
+  flutter_animate: ^4.3.0
+  google_fonts: ^6.1.0
+  image_picker: ^1.0.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
