@@ -1,12 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   static FirebaseAuth? _authInstance;
-  static final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: ['email', 'profile'],
-  );
 
   static FirebaseAuth? get _auth {
     try {
@@ -48,41 +44,44 @@ class AuthService {
     }
   }
 
-  /// Sign in with Google
+  /// Sign in with Google — uses popup on web, credential on mobile
   static Future<User?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return null; // User cancelled
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
       final auth = _auth;
       if (auth == null) {
         debugPrint('Firebase Auth not available for sign-in');
         return null;
       }
 
-      final userCredential = await auth.signInWithCredential(credential);
-      return userCredential.user;
+      if (kIsWeb) {
+        // Web: Use signInWithPopup (google_sign_in package doesn't work on web)
+        final GoogleAuthProvider googleProvider = GoogleAuthProvider();
+        googleProvider.addScope('email');
+        googleProvider.addScope('profile');
+
+        final UserCredential userCredential =
+            await auth.signInWithPopup(googleProvider);
+        return userCredential.user;
+      } else {
+        // Mobile: Use signInWithProvider
+        final GoogleAuthProvider googleProvider = GoogleAuthProvider();
+        googleProvider.addScope('email');
+        googleProvider.addScope('profile');
+
+        final UserCredential userCredential =
+            await auth.signInWithProvider(googleProvider);
+        return userCredential.user;
+      }
     } catch (e) {
       debugPrint('Error signing in with Google: $e');
-      return null;
+      rethrow;
     }
   }
 
-  /// Sign out from both Firebase and Google
+  /// Sign out
   static Future<void> signOut() async {
     try {
-      await Future.wait([
-        if (_auth != null) _auth!.signOut(),
-        _googleSignIn.signOut(),
-      ]);
+      await _auth?.signOut();
     } catch (e) {
       debugPrint('Error signing out: $e');
     }
